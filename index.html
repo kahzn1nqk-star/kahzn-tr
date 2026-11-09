@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TAROT MYSTIC AI — Xem Bài Tarot Online 78 Lá & Luận Giải Bản Mệnh</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Cormorant+Garamond:ital,wght@0,600;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <!-- Animated Cosmic Starfield & Sacred Halo -->
+  <canvas id="starfield-canvas"></canvas>
+  <div class="sacred-halo"></div>
+
+  <div class="app-container">
+    <!-- Top Navigation Bar -->
+    <nav class="top-navbar">
+      <div class="brand-logo" id="brand-home-link" title="Quay về Trang 1">
+        <div class="brand-emblem">
+          <i class="fa-solid fa-star-and-crescent"></i>
+        </div>
+        <div>
+          <span class="brand-title">TAROT MYSTIC AI</span>
+          <span class="brand-subtitle">Thánh Đường Tarot 78 Lá • Chuyển Trang Từng Bước</span>
+        </div>
+      </div>
+
+      <div class="nav-actions">
+        <button type="button" class="nav-btn" id="nav-btn-encyclopedia">
+          <i class="fa-solid fa-book-journal-whills"></i> Thư Viện 8 Bộ Bài (78 Lá)
+        </button>
+        <button type="button" class="nav-btn" id="nav-btn-history">
+          <i class="fa-solid fa-clock-rotate-left"></i> Lịch Sử Xem Bài
+        </button>
+        <button type="button" class="nav-btn" id="nav-btn-sound">
+          <i class="fa-solid fa-volume-high"></i> Âm thanh: Bật
+        </button>
+        <button type="button" class="nav-btn" id="nav-btn-api">
+          <span class="status-dot"></span> Gemini AI Key
+        </button>
+      </div>
+    </nav>
+
+    <!-- 5-Page Stepper Navigation Bar -->
+    <div class="wizard-stepper" id="wizard-stepper">
+      <div class="step-pill active" data-goto-page="1">
+        <span class="step-num">1</span> Bản Mệnh
+      </div>
+      <div class="step-pill" data-goto-page="2">
+        <span class="step-num">2</span> Chủ Đề & Câu Hỏi
+      </div>
+      <div class="step-pill" data-goto-page="3">
+        <span class="step-num">3</span> Chọn Bộ Bài (78 Lá)
+      </div>
+      <div class="step-pill" data-goto-page="4">
+        <span class="step-num">4</span> Xòe Bài & Rút 3 Lá
+      </div>
+      <div class="step-pill" data-goto-page="5">
+        <span class="step-num">5</span> Lật Bài & AI Phân Tích
+      </div>
+    </div>
+
+    <!-- ==================================================================
+         TRANG 1: NHẬP THÔNG TIN BẢN MỆNH (TÊN, TUỔI, NGÀY THÁNG NĂM SINH)
+         ================================================================== -->
+    <section class="wizard-page active-page" id="page-1">
+      <div class="mystic-panel">
+        <div class="panel-header">
+          <div>
+            <h2 class="panel-title">
+              <i class="fa-solid fa-user-astronaut"></i> Trang 1: Khai Mở Hồ Sơ Bản Mệnh
+            </h2>
+            <p class="panel-subtitle">
+              Nhập Họ Tên, Tuổi và Ngày Tháng Năm Sinh để hệ thống tính toán Cung Hoàng Đạo, Ngũ Hành, Con Số Chủ Đạo trước khi sang trang chọn chủ đề.
+            </p>
+          </div>
+        </div>
+
+        <div class="step1-grid">
+          <!-- Left Form -->
+          <div>
+            <div class="form-group">
+              <label class="form-label" for="input-fullname">
+                <i class="fa-solid fa-signature"></i> Họ và Tên của bạn
+              </label>
+              <input
+                type="text"
+                id="input-fullname"
+                class="mystic-input"
+                placeholder="VD: Nguyễn Minh Anh"
+                value="Nguyễn Minh Anh"
+              />
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1.4fr; gap: 14px;">
+              <div class="form-group">
+                <label class="form-label" for="input-age">
+                  <i class="fa-solid fa-hourglass-half"></i> Tuổi hiện tại
+                </label>
+                <input
+                  type="number"
+                  id="input-age"
+                  class="mystic-input"
+                  min="1"
+                  max="120"
+                  placeholder="VD: 24"
+                />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="input-dob">
+                  <i class="fa-solid fa-calendar-days"></i> Ngày tháng năm sinh
+                </label>
+                <input
+                  type="date"
+                  id="input-dob"
+                  class="mystic-input"
+                  value="2002-08-15"
+                />
+              </div>
+            </div>
+
+            <div style="background: rgba(212, 175, 55, 0.08); border: 1px dashed rgba(212, 175, 55, 0.35); border-radius: 12px; padding: 14px; font-size: 0.85rem; color: var(--text-muted); margin-top: 6px;">
+              <i class="fa-solid fa-wand-magic-sparkles" style="color: var(--gold-light);"></i>
+              Thông tin tên tuổi và ngày sinh của bạn được đồng bộ trực tiếp vào hồ sơ bên cạnh để Gemini AI cá nhân hóa lời giải bài.
+            </div>
+          </div>
+
+          <!-- Right Live Destiny Card -->
+          <div class="destiny-profile-card" id="destiny-profile-box"></div>
+        </div>
+
+        <div class="page-nav-footer" style="justify-content: flex-end;">
+          <button type="button" class="btn-gold" id="btn-page1-next">
+            Tiếp Tục Sang Trang Chọn Chủ Đề & Nội Dung Xem <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         TRANG 2: CHỌN CHỦ ĐỀ, KIỂU TRẢI BÀI & NỘI DUNG XEM
+         ================================================================== -->
+    <section class="wizard-page" id="page-2">
+      <div class="mystic-panel">
+        <div class="panel-header">
+          <div>
+            <h2 class="panel-title">
+              <i class="fa-solid fa-compass"></i> Trang 2: Chọn Chủ Đề & Nội Dung Câu Hỏi
+            </h2>
+            <p class="panel-subtitle">
+              Hãy chọn lĩnh vực bạn muốn xem và điền câu hỏi hoặc hoàn cảnh cụ thể để AI phân tích sâu sắc nhất.
+            </p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">
+            <i class="fa-solid fa-sparkles"></i> 1. Chọn Chủ Đề Bạn Muốn Xem:
+          </label>
+          <div class="topic-cards-grid" id="topic-pills-container"></div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="select-spread-type">
+            <i class="fa-solid fa-layer-group"></i> 2. Chọn Ý Nghĩa 3 Vị Trí Trải Bài:
+          </label>
+          <select id="select-spread-type" class="mystic-select"></select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="input-question">
+            <i class="fa-solid fa-feather-pointed"></i> 3. Nhập Nội Dung Xem / Câu Hỏi Cụ Thể Của Bạn:
+          </label>
+          <textarea
+            id="input-question"
+            class="mystic-textarea"
+            placeholder="Hãy viết rõ hoàn cảnh, tâm sự hoặc câu hỏi bạn muốn Tarot AI phân tích..."
+          >Người ấy đang thực sự nghĩ gì về mối quan hệ của chúng tôi và tương lai hai đứa sẽ ra sao?</textarea>
+          <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 4px;">
+            <i class="fa-regular fa-lightbulb" style="color: var(--gold-light);"></i> Hoặc nhấn chọn nhanh một câu hỏi gợi ý bên dưới:
+          </div>
+          <div class="sample-questions-box" id="sample-questions-container"></div>
+        </div>
+
+        <div class="page-nav-footer">
+          <button type="button" class="btn-outline-gold" data-goto-page="1">
+            <i class="fa-solid fa-arrow-left"></i> Quay Lại Trang 1 (Bản Mệnh)
+          </button>
+          <button type="button" class="btn-gold" id="btn-page2-next">
+            Tiếp Tục Sang Trang Chọn Bộ Bài 78 Lá <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         TRANG 3: CHỌN BỘ BÀI 78 LÁ & MẶT SAU TỪ NGUỒN NGOÀI
+         ================================================================== -->
+    <section class="wizard-page" id="page-3">
+      <div class="mystic-panel">
+        <div class="panel-header">
+          <div>
+            <h2 class="panel-title">
+              <i class="fa-solid fa-clone"></i> Trang 3: Chọn Bộ Bài Tarot 78 Lá Từ Nguồn Ngoài
+            </h2>
+            <p class="panel-subtitle">
+              Nhấp chọn 1 trong <strong>8 Bộ Bài 78 Lá Chuẩn Quốc Tế</strong> bên dưới để chuyển ngay sang bàn rút bài, hoặc tùy chỉnh thêm Mặt Sau lá bài.
+            </p>
+          </div>
+        </div>
+
+        <!-- Custom Card Back Picker -->
+        <div style="margin-bottom: 20px;">
+          <label class="form-label" style="margin-bottom: 6px;">
+            <i class="fa-solid fa-shield-halved"></i> Chọn Hoa Văn Mặt Sau Lá Bài Từ Nguồn Ngoài (Card Back):
+          </label>
+          <div class="card-backs-strip" id="card-backs-strip"></div>
+        </div>
+
+        <label class="form-label" style="margin-bottom: 10px;">
+          <i class="fa-solid fa-wand-sparkles"></i> Chọn Bộ Bài 78 Lá (Nhấp chọn bộ bài sẽ chuyển sang Trang Rút 3 Lá):
+        </label>
+        <div class="decks-grid" id="external-decks-grid"></div>
+
+        <div class="page-nav-footer">
+          <button type="button" class="btn-outline-gold" data-goto-page="2">
+            <i class="fa-solid fa-arrow-left"></i> Quay Lại Trang 2 (Câu Hỏi)
+          </button>
+          <button type="button" class="btn-gold" id="btn-page3-next">
+            Bước Vào Trang Xòe Bài & Tự Chọn 3 Lá <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         TRANG 4: HIỆN 3 Ô SẴN + ẤN VÀO BỘ BÀI ĐỂ XÒE + DI CHUỘT NỔI LÊN + BAY VÀO Ô
+         ================================================================== -->
+    <section class="wizard-page" id="page-4">
+      <div class="mystic-panel">
+        <div class="panel-header">
+          <div>
+            <h2 class="panel-title">
+              <i class="fa-solid fa-hand-sparkles"></i> Trang 4: Xòe Bộ Bài 78 Lá & Tự Chọn 3 Lá Định Mệnh
+            </h2>
+            <p class="panel-subtitle" id="pick-instruction-text">
+              Bước 1: Nhấn vào bộ bài đang xếp chồng bên dưới để xòe 78 lá bài. Bước 2: Di chuột cảm nhận và nhấp chọn 3 lá bài để lá bài bay lên 3 ô phía trên.
+            </p>
+          </div>
+
+          <div class="utility-flex">
+            <label style="display: inline-flex; align-items: center; gap: 7px; font-size: 0.82rem; color: var(--gold-light); cursor: pointer;">
+              <input type="checkbox" id="chk-allow-reversed" checked style="accent-color: var(--gold-primary); width: 15px; height: 15px;" />
+              Có Bài Ngược (Reversed)
+            </label>
+            <button type="button" class="btn-outline-gold" id="btn-reset-stack" style="padding: 7px 14px; font-size: 0.8rem;">
+              <i class="fa-solid fa-rotate"></i> Gom & Tráo Lại Bộ Bài
+            </button>
+            <button type="button" class="btn-outline-gold" id="btn-auto-pick-3" style="padding: 7px 14px; font-size: 0.8rem;">
+              <i class="fa-solid fa-dice"></i> Rút Ngẫu Nhiên Nhanh
+            </button>
+          </div>
+        </div>
+
+        <!-- 3 Ô TRẢI BÀI ĐÃ HIỆN SẴN Ở PHÍA TRÊN CHỜ LÁ BÀI BAY LÊN -->
+        <div class="draw-target-slots-row" id="draw-target-slots-row"></div>
+
+        <!-- BÀN BÀI PHÍA DƯỚI: BAN ĐẦU LÀ BỘ BÀI XẾP CHỒNG -> ẤN VÀO XÒE RA 78 LÁ -->
+        <div class="tarot-deck-sanctuary" id="tarot-deck-sanctuary">
+          <!-- State A: Stacked Deck Pile (Clicked to Fan Out) -->
+          <div class="stacked-deck-stage" id="stacked-deck-stage" title="Nhấn vào bộ bài để tráo và xòe 78 lá bài ra">
+            <div class="stacked-deck-pile" id="stacked-deck-pile"></div>
+            <div class="click-to-fan-badge">
+              <i class="fa-solid fa-fan"></i> Nhấn Vào Bộ Bài Để Xòe 78 Lá Bài Ra
+            </div>
+            <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 10px;">
+              Khi bộ bài xòe ra, bạn di chuột đến đâu lá bài sẽ nổi lên đến đó, nhấp chọn để lá bài bay vào 3 ô phía trên.
+            </p>
+          </div>
+
+          <!-- State B: Fanned Out 78 Cards (Hidden until stacked deck is clicked) -->
+          <div class="fanned-deck-wrapper" id="fanned-deck-stage" style="display: none;"></div>
+        </div>
+
+        <div class="page-nav-footer">
+          <button type="button" class="btn-outline-gold" data-goto-page="3">
+            <i class="fa-solid fa-arrow-left"></i> Quay Lại Chọn Bộ Bài
+          </button>
+          <button type="button" class="btn-gold" id="btn-flip-and-analyze" disabled>
+            <i class="fa-solid fa-wand-magic-sparkles"></i> Chuyển Sang Trang Lật Mở 3 Lá & AI Phân Tích <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         TRANG 5: LẬT MỞ 3 LÁ BÀI 3D & BẢN LUẬN GIẢI GEMINI AI
+         ================================================================== -->
+    <section class="wizard-page" id="page-5">
+      <div class="mystic-panel">
+        <div class="panel-header">
+          <div>
+            <h2 class="panel-title">
+              <i class="fa-solid fa-scroll"></i> Trang 5: Khai Mở 3 Lá Bài & Luận Giải Từ Gemini AI
+            </h2>
+            <p class="panel-subtitle" id="ai-model-used-badge">
+              <i class="fa-solid fa-sparkles"></i> Kết quả phân tích chuyên sâu theo Tên, Tuổi, Ngày Sinh và Nội Dung Xem của bạn
+            </p>
+          </div>
+
+          <div class="utility-flex">
+            <button type="button" class="btn-outline-gold" id="btn-copy-reading">
+              <i class="fa-regular fa-copy"></i> Sao Chép Luận Giải
+            </button>
+            <button type="button" class="btn-outline-gold" id="btn-new-reading">
+              <i class="fa-solid fa-rotate"></i> Rút Lại 3 Lá Khác
+            </button>
+          </div>
+        </div>
+
+        <!-- 3 Revealed Cards 3D Stage -->
+        <div id="three-slots-stage" class="three-slots-stage"></div>
+
+        <!-- AI Reading Sanctuary -->
+        <div class="ai-reading-box">
+          <div id="ai-loading-container" class="ai-loading-state">
+            <div class="crystal-orb"></div>
+            <h3 style="font-family: var(--font-display); color: var(--gold-light); font-size: 1.3rem; margin-bottom: 8px;">
+              Tarot Reader AI Đang Giải Mã 3 Lá Bài Định Mệnh...
+            </h3>
+            <p style="color: var(--text-muted); max-width: 540px; margin: 0 auto; font-size: 0.94rem;">
+              Hệ thống đang kết hợp Họ Tên, Tuổi, Ngày Tháng Năm Sinh, Nội Dung Câu Hỏi và năng lượng của 3 lá bài vừa lật mở...
+            </p>
+          </div>
+
+          <div id="ai-result-container" style="display: none;">
+            <div id="ai-reading-markdown" class="reading-markdown-content"></div>
+
+            <!-- Follow-up Chat -->
+            <div class="followup-chat-box">
+              <h4 style="font-family: var(--font-display); color: var(--gold-light); font-size: 1.08rem; margin-bottom: 6px;">
+                <i class="fa-solid fa-comments"></i> Hỏi Thêm Tarot Reader AI Về 3 Lá Bài Của Bạn
+              </h4>
+              <p style="font-size: 0.84rem; color: var(--text-muted); margin-bottom: 14px;">
+                Đặt câu hỏi tiếp theo nếu bạn muốn làm rõ hơn về mốc thời gian, tâm ý hoặc lời khuyên hành động:
+              </p>
+
+              <div id="followup-chat-list" class="chat-messages-list"></div>
+
+              <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <input
+                  type="text"
+                  id="input-followup-question"
+                  class="mystic-input"
+                  style="flex: 1; min-width: 240px;"
+                  placeholder="Nhập câu hỏi tiếp theo của bạn cho AI..."
+                />
+                <button type="button" class="btn-gold" id="btn-send-followup">
+                  <i class="fa-solid fa-paper-plane"></i> Gửi Câu Hỏi
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="page-nav-footer">
+          <button type="button" class="btn-outline-gold" id="btn-back-to-draw">
+            <i class="fa-solid fa-arrow-left"></i> Quay Lại Trang Rút Bài
+          </button>
+          <button type="button" class="btn-gold" id="btn-restart-from-page1">
+            <i class="fa-solid fa-sparkles"></i> Xem Quẻ Mới Từ Đầu (Trang 1)
+          </button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ====================================================================
+       MODAL 1: 78-CARD ENCYCLOPEDIA & DECK GALLERY
+       ==================================================================== -->
+  <div class="modal-backdrop" id="modal-encyclopedia">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 style="font-family: var(--font-display); color: var(--gold-light); font-size: 1.2rem;">
+          <i class="fa-solid fa-book-open"></i> Thư Viện 78 Lá Bài Tarot Chuẩn Quốc Tế (Mặt Trước & Mặt Sau)
+        </h3>
+        <button type="button" class="close-modal-btn" data-close-modal="modal-encyclopedia">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="utility-flex" style="justify-content: space-between; margin-bottom: 14px;">
+          <div style="flex: 1; min-width: 240px;">
+            <label class="form-label" for="gallery-deck-select">Chọn Bộ Bài 78 Lá Nguồn Ngoài:</label>
+            <select id="gallery-deck-select" class="mystic-select"></select>
+          </div>
+          <div style="flex: 1; min-width: 220px;">
+            <label class="form-label" for="gallery-suit-filter">Lọc Theo Bộ / Nhóm Bài:</label>
+            <select id="gallery-suit-filter" class="mystic-select">
+              <option value="all">Tất cả 78 Lá Bài (22 Ẩn Chính + 56 Ẩn Phụ)</option>
+              <option value="Major">Bộ Ẩn Chính (22 Lá Major Arcana)</option>
+              <option value="Wands">Bộ Gậy — Wands (14 Lá Nguyên Tố Lửa)</option>
+              <option value="Cups">Bộ Cốc — Cups (14 Lá Nguyên Tố Nước)</option>
+              <option value="Swords">Bộ Kiếm — Swords (14 Lá Nguyên Tố Khí)</option>
+              <option value="Pents">Bộ Tiền — Pentacles (14 Lá Nguyên Tố Đất)</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="encyclopedia-back-preview" style="margin-bottom: 14px;"></div>
+        <div id="encyclopedia-cards-grid" class="gallery-cards-grid"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====================================================================
+       MODAL 2: SINGLE CARD ZOOM & LORE (FRONT & BACK)
+       ==================================================================== -->
+  <div class="modal-backdrop" id="modal-card-detail">
+    <div class="modal-dialog" style="max-width: 820px;">
+      <div class="modal-header">
+        <h3 style="font-family: var(--font-display); color: var(--gold-light); font-size: 1.15rem;">
+          <i class="fa-solid fa-eye"></i> Chi Tiết Lá Bài Tarot (Mặt Trước & Mặt Sau)
+        </h3>
+        <button type="button" class="close-modal-btn" data-close-modal="modal-card-detail">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-body" id="modal-card-detail-body"></div>
+    </div>
+  </div>
+
+  <!-- ====================================================================
+       MODAL 3: READING HISTORY
+       ==================================================================== -->
+  <div class="modal-backdrop" id="modal-history">
+    <div class="modal-dialog" style="max-width: 840px;">
+      <div class="modal-header">
+        <h3 style="font-family: var(--font-display); color: var(--gold-light); font-size: 1.15rem;">
+          <i class="fa-solid fa-clock-rotate-left"></i> Lịch Sử Các Lần Xem Tarot Của Bạn
+        </h3>
+        <button type="button" class="close-modal-btn" data-close-modal="modal-history">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-body" id="history-list-container"></div>
+    </div>
+  </div>
+
+  <!-- ====================================================================
+       MODAL 4: GEMINI API KEY SETTINGS
+       ==================================================================== -->
+  <div class="modal-backdrop" id="modal-api-settings">
+    <div class="modal-dialog small">
+      <div class="modal-header">
+        <h3 style="font-family: var(--font-display); color: var(--gold-light); font-size: 1.15rem;">
+          <i class="fa-solid fa-key"></i> Cấu Hình Kết Nối Gemini AI
+        </h3>
+        <button type="button" class="close-modal-btn" data-close-modal="modal-api-settings">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label" for="input-gemini-key">Gemini API Key:</label>
+          <input
+            type="text"
+            id="input-gemini-key"
+            class="mystic-input"
+            value="AQ.Ab8RN6K1321CdAFTI9pFmzs4anLG3xLy0QaaX6-S42SFSvYBBQ"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="select-gemini-model">Mô hình Gemini ưu tiên:</label>
+          <select id="select-gemini-model" class="mystic-select">
+            <option value="gemini-3-flash-preview">Gemini 3 Flash Preview (Nhanh & Sâu sắc - Khuyên dùng)</option>
+            <option value="gemini-3.1-flash-lite">Gemini 3.1 Flash Lite (Tốc độ phản hồi cực nhanh)</option>
+            <option value="gemma-4-26b-a4b-it">Gemma 4 26B IT (Mô hình suy luận mở rộng)</option>
+            <option value="gemini-3.8-flash">Gemini 3.8 Flash</option>
+          </select>
+        </div>
+
+        <div class="utility-flex" style="justify-content: flex-end; margin-top: 16px;">
+          <button type="button" class="btn-outline-gold" id="btn-reset-api-key">
+            Khôi Phục Key Mặc Định
+          </button>
+          <button type="button" class="btn-gold" id="btn-save-api-key">
+            <i class="fa-solid fa-floppy-disk"></i> Lưu Cấu Hình
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/tarot-data.js"></script>
+  <script src="js/astrology.js"></script>
+  <script src="js/sound.js"></script>
+  <script src="js/ai-service.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
